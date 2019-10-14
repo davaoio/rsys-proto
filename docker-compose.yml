@@ -1,0 +1,27 @@
+version: '3'
+services:
+  app:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    image: rsys:latest
+    ports:
+      - 8080:80
+    volumes:
+      - .:/var/www
+    links:
+      - mysql
+    environment:
+      DB_HOST: mysql
+      DB_DATABASE: rsys
+      DB_USERNAME: rsysdev
+      DB_PASSWORD: rsyspassword
+  mysql:
+    image: mysql:5.7
+    ports:
+      - 13306:3306
+    environment:
+      MYSQL_DATABASE: rsys
+      MYSQL_USER: rsysdev
+      MYSQL_PASSWORD: rsyspassword
+      MYSQL_ROOT_PASSWORD: rsyspassword
